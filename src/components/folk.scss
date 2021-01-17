@@ -1,0 +1,152 @@
+.folk {
+  // VARIABLES
+  --arm-width: 140px;
+  --arm-height: 50px;
+  --neck-width: 46px;
+  --neck-height: 67px;
+  --corpus-width: 105px;
+  --corpus-height: 165px;
+  --hand-radius: 30px;
+  --leg-width: 175px;
+  --leg-height: 48px;
+  --foot-width: 82px;
+  --foot-height: 29px;
+
+  --border-radius: 13px;
+
+  --green-light: #8ac657;
+  --green-dark: #4ea06a;
+  --blue: #3c5a92;
+  --skin-color: #fece8a;
+
+  // FOLK CONTAINER
+  position: relative;
+  margin: 0 auto;
+  height: 600px;
+  width: 420px;
+
+  & > * {
+    position: absolute;
+  }
+
+  // HEAD
+  .head {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  // NECK
+  .neck {
+    top: 175px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--neck-width);
+    height: var(--neck-height);
+    background-color: var(--skin-color);
+    border-radius: var(--border-radius);
+  }
+  
+  // CORPUS
+  .corpus {
+    top: 225px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--corpus-width);
+    height: var(--corpus-height);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    &--top {
+      height: 70%;
+      background: var(--green-dark);
+      background: linear-gradient(90deg, var(--green-light) 50%, var(--green-dark) 50%);
+
+    }
+    
+    &--bottom {
+      height: 30%;
+      background-color: var(--blue);
+    }
+  }
+
+  // ARMS
+  .arm {
+    top: 259px;
+    width: var(--arm-width);
+    height: var(--arm-height);
+    border-radius: var(--border-radius);
+
+    &--left {
+      left: 32%;
+      transform: translateX(-50%) rotate(-40deg);
+      background-color: var(--green-light);
+      border-bottom-right-radius: 0;
+    }
+
+    &--right {
+      left: 68%;
+      transform: translateX(-50%) rotate(40deg);
+      background-color: var(--green-dark);
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  // HANDS
+  .hand {
+    top: 313px;
+    width: var(--hand-radius);
+    height: var(--hand-radius);
+    border-radius: 50%;
+    background-color: var(--skin-color);
+
+    &--left {
+      left: 65px;
+    }
+
+    &--right {
+      left: 324px;
+    }
+  }
+
+  // LEGS
+  .leg {
+    top: 436px;
+    width: var(--leg-width);
+    height: var(--leg-height);
+    background-color: var(--blue);
+    border-radius: var(--border-radius);
+
+    &--left {
+      left: 40%;
+      transform: translateX(-50%) rotate(-80deg);
+      border-bottom-right-radius: 0;
+    }
+
+    &--right {
+      left: 60%;
+      transform: translateX(-50%) rotate(80deg);
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  // FEET
+  .foot {
+    top: 533px;
+    width: var(--foot-width);
+    height: var(--foot-height);
+    background-color: var(--skin-color);
+    border-radius: var(--border-radius);
+
+    &--left {
+      left: 30%;
+      transform: translateX(-50%) rotate(12deg);
+      border-top-right-radius: 0;
+    }
+
+    &--right {
+      left: 70%;
+      transform: translateX(-50%) rotate(-12deg);
+      border-top-left-radius: 0;
+    }
+  }
+}
