@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3b4163;
+  background-color: var(--background-dark);
 
   .container {
     width: 1687px;
@@ -13,7 +13,7 @@
     grid-template-rows: auto 1fr;
     row-gap: 60px;
     justify-content: space-between;
-    background-color: #f5f5f5;
+    background-color: var(--background-light);
     padding: 75px;
     border-radius: 10px;
     position: relative;
