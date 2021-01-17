@@ -21,9 +21,9 @@
 
   // FOLK CONTAINER
   position: relative;
-  margin: 0 auto;
-  height: 600px;
-  width: 420px;
+  top: 60px;
+  height: 565px;
+  width: 291px;
 
   & > * {
     position: absolute;
@@ -77,15 +77,15 @@
     border-radius: var(--border-radius);
 
     &--left {
-      left: 32%;
-      transform: translateX(-50%) rotate(-40deg);
+      left: 0;
+      transform: rotate(-40deg);
       background-color: var(--green-light);
       border-bottom-right-radius: 0;
     }
 
     &--right {
-      left: 68%;
-      transform: translateX(-50%) rotate(40deg);
+      left: 154px;
+      transform: rotate(40deg);
       background-color: var(--green-dark);
       border-bottom-left-radius: 0;
     }
@@ -100,11 +100,11 @@
     background-color: var(--skin-color);
 
     &--left {
-      left: 65px;
+      left: 0;
     }
 
     &--right {
-      left: 324px;
+      right: 0;
     }
   }
 
@@ -117,36 +117,62 @@
     border-radius: var(--border-radius);
 
     &--left {
-      left: 40%;
-      transform: translateX(-50%) rotate(-80deg);
+      left: 17px;
+      transform: rotate(-80deg);
       border-bottom-right-radius: 0;
     }
 
     &--right {
-      left: 60%;
-      transform: translateX(-50%) rotate(80deg);
+      left: 100px;
+      transform: rotate(80deg);
       border-bottom-left-radius: 0;
     }
   }
 
   // FEET
   .foot {
-    top: 533px;
+    top: 531px;
     width: var(--foot-width);
     height: var(--foot-height);
     background-color: var(--skin-color);
     border-radius: var(--border-radius);
 
     &--left {
-      left: 30%;
-      transform: translateX(-50%) rotate(12deg);
+      left: 25px;
+      transform: rotate(12deg);
       border-top-right-radius: 0;
     }
 
     &--right {
-      left: 70%;
-      transform: translateX(-50%) rotate(-12deg);
+      left: 186px;
+      transform: rotate(-12deg);
       border-top-left-radius: 0;
     }
+  }
+}
+
+// FOLK's CONTAINER
+.folk-container {
+  position: relative;
+}
+
+// BAR
+.bar {
+  position: absolute;
+  background-color: #53555d;
+  border-radius: 10px;
+  
+  &--horizontal {
+    left: -35%;
+    width: 300px;
+    height: 30px;
+  }
+
+  &--vertical {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 50px;
   }
 }
