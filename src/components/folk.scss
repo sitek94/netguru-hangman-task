@@ -21,9 +21,9 @@
 
   // FOLK CONTAINER
   position: relative;
-  top: 60px;
   height: 565px;
   width: 291px;
+  margin: -10px auto;
 
   & > * {
     position: absolute;
@@ -31,6 +31,7 @@
 
   // HEAD
   .head {
+    user-select: none;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -153,12 +154,13 @@
 
 // FOLK's CONTAINER
 .folk-container {
-  position: relative;
+  width: 320px;
+  height: 626px;
 }
 
 // BAR
 .bar {
-  position: absolute;
+  position: relative;
   background-color: #53555d;
   border-radius: 10px;
   
@@ -169,9 +171,7 @@
   }
 
   &--vertical {
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: -10px auto;
     width: 30px;
     height: 50px;
   }
