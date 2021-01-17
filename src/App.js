@@ -1,11 +1,11 @@
-const { default: Folk } = require('components/folk');
+import Folk from 'components/folk';
+import Layout from 'components/layout';
 
 function App() {
   return (
-    <div>
-      <h1>Netguru hangman</h1>
+    <Layout>
       <Folk />
-    </div>
+    </Layout>
   );
 }
 
