@@ -2,19 +2,17 @@ import PropTypes from 'prop-types';
 import Letter from 'components/letter';
 import './letters.scss';
 
-function Letters({ word = '', guessedLetters = [], maxWordLength = 11 }) {
-  const disabledLetters = Array(maxWordLength - word.length).fill();
-  const activeLetters = word.split('');
+function Letters({ word, guessedLetters = [], maxWordLength = 11 }) {
+  const wordLetters = word
+    // Pad the word when its length is less than max length
+    .padStart(maxWordLength)
+    .split('');
 
   return (
     <div className="letters">
-      {disabledLetters.map((_, i) => (
-        <Letter key={`disabled-${i}`} disabled />
-      ))}
-
-      {activeLetters.map((letter, i) => (
-        <Letter key={`letter-${i}`}>
-          {guessedLetters.includes(letter) ? letter : null}
+      {wordLetters.map((letter, i) => (
+        <Letter key={i} disabled={letter === ' '}>
+          {guessedLetters.includes(letter) || letter === '-' ? letter : null}
         </Letter>
       ))}
     </div>
@@ -23,13 +21,7 @@ function Letters({ word = '', guessedLetters = [], maxWordLength = 11 }) {
 
 Letters.propTypes = {
   guessedLetters: PropTypes.arrayOf(PropTypes.string),
-
-  // Custom validator checks if the word's length doesn't exceed max length
-  word: ({ word, maxWordLength }) => {
-    if (word.length > maxWordLength) {
-      return new Error('`word` prop provided to `<Letters>` is too long');
-    }
-  },
+  word: PropTypes.string,
 };
 
 export default Letters;
