@@ -4,12 +4,13 @@ import Folk from 'components/folk';
 import YouMissed from 'components/you-missed';
 import Letters from 'components/letters';
 import Layout from 'components/layout';
-
-const word = 'HANGMAN';
+import useRandomWord from 'hooks/use-random-word';
 
 function App() {
   const [usedLetters, setUsedLetters] = React.useState([]);
+  const randomWord = useRandomWord();
 
+  // Add/remove key down event listener
   React.useEffect(() => {
     const handleKeyDown = ({ key }) => {
       // Pressed key is not alphabetical or has been used already
@@ -27,14 +28,14 @@ function App() {
     };
   }, [usedLetters]);
 
-  const missedLetters = usedLetters.filter((l) => !word.includes(l));
-  const guessedLetters = usedLetters.filter((l) => word.includes(l));
+  const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
+  const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
 
   return (
     <Layout>
       <Folk />
       <YouMissed missedLetters={missedLetters} />
-      <Letters word={word} guessedLetters={guessedLetters} />
+      <Letters word={randomWord} guessedLetters={guessedLetters} />
     </Layout>
   );
 }
