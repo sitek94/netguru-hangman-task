@@ -9,7 +9,7 @@ import Modal from 'components/modal';
 
 function App() {
   const [usedLetters, setUsedLetters] = React.useState([]);
-  const [randomWord, fetchRandomWord] = useRandomWord();
+  const [{ randomWord, status }, fetchRandomWord] = useRandomWord();
 
   // Add/remove key down event listener
   React.useEffect(() => {
@@ -38,21 +38,35 @@ function App() {
   const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
 
   // Filter out spaces and dashes
-  const randomWordLetters = randomWord.split('').filter(l => l !== ' ' && l !== '-');
+  const randomWordLetters = randomWord
+    .split('')
+    .filter((l) => l !== ' ' && l !== '-');
 
   const isGameOver = missedLetters.length === 11;
   const isGameWon = guessedLetters.length === randomWordLetters.length;
 
+  const isLoading = status === 'pending';
+  const isError = status === 'rejected';
+  const isSuccess = status === 'resolved';
+
   return (
     <Layout>
-      {isGameOver && (
+      {isLoading && <Modal title="Loading..." noButton />}
+      {isError && (
+        <Modal
+          title="Ooops :("
+          description="Something went wrong, try refreshing the page."
+          noButton
+        />
+      )}
+      {isGameOver && isSuccess && (
         <Modal
           title="Game over"
           buttonText="New word"
           onButtonClick={handleNewWordClick}
         />
       )}
-      {isGameWon && (
+      {isGameWon && isSuccess && (
         <Modal
           title="You won!"
           buttonText="Again"
