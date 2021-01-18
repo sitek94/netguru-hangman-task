@@ -1,6 +1,6 @@
-.folk {
-  // VARIABLES
+@import '../sass/media-queries.scss';
 
+.folk {
   // Z-index
   --head-z-index: 10;
   --neck-z-index: 1;
@@ -180,8 +180,19 @@
 
 // FOLK's CONTAINER
 .folk-container {
+  position: absolute;
+  top: var(--container-padding);
+  left: var(--container-padding);
   width: 320px;
   height: 626px;
+
+  @include respond(lg) {
+    transform: scale(0.7);
+    transform-origin: top left;
+  }
+  @include respond(md) {
+    transform: scale(0.6);
+  }
 }
 
 // BAR
