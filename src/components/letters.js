@@ -1,23 +1,48 @@
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import './letters.scss';
 
-function Letters() {
+const MAX_WORD_LENGTH = 11;
 
-  const disabledButtons = Array(4).fill(null);
-  
+function Letters({ word = '', guessedLetters = [] }) {
+  const disabledLetters = Array(MAX_WORD_LENGTH - word.length).fill();
+  const activeLetters = word.split('');
+
   return (
     <div className="letters">
-      {disabledButtons.map((_, i) => (
-        <button key={i} disabled />
+      {disabledLetters.map((_, i) => (
+        <Letter key={`disabled-${i}`} disabled />
       ))}
-      <button>h</button>
-      <button>a</button>
-      <button />
-      <button />
-      <button />
-      <button>a</button>
-      <button />
+
+      {activeLetters.map((letter, i) => (
+        <Letter key={`letter-${i}`}>
+          {guessedLetters.includes(letter) ? letter : null}
+        </Letter>
+      ))}
     </div>
   );
 }
+
+Letters.propTypes = {
+  guessedLetters: PropTypes.arrayOf(PropTypes.string),
+
+  // Custom validator checks if the word's length doesn't exceed max length
+  word: (props, propName) => {
+    if (props[propName].length > MAX_WORD_LENGTH) {
+      return new Error('`word` prop provided to `<Letters>` is too long');
+    }
+  },
+};
+
+function Letter({ disabled, children }) {
+  return (
+    <div className={clsx('letter', disabled && 'disabled')}>{children}</div>
+  );
+}
+
+Letter.propTypes = {
+  disabled: PropTypes.bool,
+  children: PropTypes.node,
+};
 
 export default Letters;
