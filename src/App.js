@@ -8,6 +8,7 @@ import useRandomWord from 'hooks/use-random-word';
 import Modal from 'components/modal';
 
 function App() {
+  const [isFirstGame, setIsFirstGame] = React.useState(true);
   const [usedLetters, setUsedLetters] = React.useState([]);
   const [{ randomWord, status }, fetchRandomWord] = useRandomWord();
 
@@ -29,9 +30,15 @@ function App() {
     };
   }, [usedLetters]);
 
-  const handleNewWordClick = () => {
+  // Fetches new word and resets the used letters
+  const startNewGame = () => {
     setUsedLetters([]);
     fetchRandomWord();
+  };
+
+  // Starts the first game
+  const startFirstGame = () => {
+    setIsFirstGame(false);
   };
 
   const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
@@ -42,13 +49,35 @@ function App() {
     .split('')
     .filter((l) => l !== ' ' && l !== '-');
 
+  // Game is won/lost
   const isGameOver = missedLetters.length === 11;
   const isGameWon = guessedLetters.length === randomWordLetters.length;
 
+  // Fetch status
   const isLoading = status === 'pending';
   const isError = status === 'rejected';
   const isSuccess = status === 'resolved';
 
+  // Initial game
+  if (isFirstGame) {
+    return (
+      <Layout>
+        <Modal
+          title="Netguru Hangman"
+          description={`This is a simple Hangman game, have fun and good luck!`}
+          buttonText="Start game"
+          onButtonClick={startFirstGame}
+        />
+        <Folk visiblePartsCount={11} />
+        <YouMissed
+          missedLetters={['B', 'D', 'E', 'Z', 'P', 'U', 'K', 'L', 'Q', 'W']}
+        />
+        <Letters word="HANGMAN" guessedLetters={['H', 'A']} />
+      </Layout>
+    );
+  }
+
+  // After the initial game
   return (
     <Layout>
       {isLoading && <Modal title="Loading..." noButton />}
@@ -63,7 +92,7 @@ function App() {
         <Modal
           title="Game over"
           buttonText="New word"
-          onButtonClick={handleNewWordClick}
+          onButtonClick={startNewGame}
         />
       )}
       {isGameWon && isSuccess && (
@@ -71,7 +100,7 @@ function App() {
           title="You won!"
           buttonText="Again"
           description={`Congratulations, you missed ${missedLetters.length} letters.`}
-          onButtonClick={handleNewWordClick}
+          onButtonClick={startNewGame}
         />
       )}
       <Folk visiblePartsCount={missedLetters.length} />
