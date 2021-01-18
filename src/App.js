@@ -44,14 +44,14 @@ function App() {
   const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
   const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
 
-  // Filter out spaces and dashes
-  const randomWordLetters = randomWord
-    .split('')
-    .filter((l) => l !== ' ' && l !== '-');
-
-  // Game is won/lost
+  // Game ends once folk earns left foot, this happens on 11th step.
   const isGameOver = missedLetters.length === 11;
-  const isGameWon = guessedLetters.length === randomWordLetters.length;
+
+  // Game is won when each letter of the random word can be found
+  // among the guessed letters
+  const isGameWon = randomWord
+    .split('')
+    .every((l) => guessedLetters.includes(l));
 
   // Fetch status
   const isLoading = status === 'pending';
