@@ -1,28 +1,37 @@
-import head from 'images/head.png';
+import PropTypes from 'prop-types';
 import './folk.scss';
 
-function Folk() {
+const folkParts = [
+  'head',
+  'neck',
+  'corpus',
+  'arm arm--right',
+  'arm arm--left',
+  'hand hand--right',
+  'hand hand--left',
+  'leg leg--right',
+  'leg leg--left',
+  'foot foot--right',
+  'foot foot--left',
+];
+
+function Folk({ visiblePartsCount = 0 }) {
+  const visibleParts = folkParts.slice(0, visiblePartsCount);
+
   return (
     <FolkContainer>
       <div className="folk">
-        <div className="neck" />
-        <img className="head" alt="Folk's head" src={head} />
-        <div className="corpus">
-          <div className="corpus--top" />
-          <div className="corpus--bottom" />
-        </div>
-        <div className="hand hand--left" />
-        <div className="hand hand--right" />
-        <div className="arm arm--left" />
-        <div className="arm arm--right" />
-        <div className="foot foot--left" />
-        <div className="foot foot--right" />
-        <div className="leg leg--left" />
-        <div className="leg leg--right" />
+        {visibleParts.map((part) => (
+          <div key={part} className={part} />
+        ))}
       </div>
     </FolkContainer>
   );
 }
+
+Folk.propTypes = {
+  visiblePartsCount: PropTypes.number,
+};
 
 function FolkContainer({ children }) {
   return (

@@ -33,7 +33,7 @@ function App() {
 
   return (
     <Layout>
-      <Folk />
+      <Folk visiblePartsCount={missedLetters.length} />
       <YouMissed missedLetters={missedLetters} />
       <Letters word={randomWord} guessedLetters={guessedLetters} />
     </Layout>
