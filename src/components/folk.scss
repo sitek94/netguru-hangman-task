@@ -1,5 +1,18 @@
 .folk {
   // VARIABLES
+
+  // Z-index
+  --head-z-index: 10;
+  --neck-z-index: 1;
+  --corpus-z-index: 5;
+  --arm-z-index: 10;
+  --hand-z-index: 1;
+  --leg-z-index: 10;
+  --foot-z-index: 1;
+
+  // Dimensions
+  --head-width: 192px;
+  --head-height: 212px;
   --arm-width: 140px;
   --arm-height: 50px;
   --neck-width: 46px;
@@ -12,8 +25,10 @@
   --foot-width: 82px;
   --foot-height: 29px;
 
+  // Radius
   --border-radius: 13px;
 
+  // Colors
   --green-light: #8ac657;
   --green-dark: #4ea06a;
   --blue: #3c5a92;
@@ -31,13 +46,17 @@
 
   // HEAD
   .head {
-    user-select: none;
+    z-index: var(--head-z-index);
     left: 50%;
     transform: translateX(-50%);
+    width: var(--head-width);
+    height: var(--head-height);
+    background: url(../images/head.png);
   }
 
   // NECK
   .neck {
+    z-index: var(--neck-z-index);
     top: 175px;
     left: 50%;
     transform: translateX(-50%);
@@ -46,9 +65,11 @@
     background-color: var(--skin-color);
     border-radius: var(--border-radius);
   }
-  
+
   // CORPUS
   .corpus {
+    z-index: var(--corpus-z-index);
+    position: relative;
     top: 225px;
     left: 50%;
     transform: translateX(-50%);
@@ -56,22 +77,24 @@
     height: var(--corpus-height);
     border-radius: var(--border-radius);
     overflow: hidden;
+    background: linear-gradient(
+      90deg,
+      var(--green-light) 50%,
+      var(--green-dark) 50%
+    );
 
-    &--top {
-      height: 70%;
-      background: var(--green-dark);
-      background: linear-gradient(90deg, var(--green-light) 50%, var(--green-dark) 50%);
-
-    }
-    
-    &--bottom {
-      height: 30%;
-      background-color: var(--blue);
+    // Blue part of the corpus
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, var(--blue) 30%, rgba(0, 0, 0, 0) 30%);
     }
   }
 
   // ARMS
   .arm {
+    z-index: var(--arm-z-index);
     top: 259px;
     width: var(--arm-width);
     height: var(--arm-height);
@@ -94,6 +117,7 @@
 
   // HANDS
   .hand {
+    z-index: var(--hand-z-index);
     top: 313px;
     width: var(--hand-radius);
     height: var(--hand-radius);
@@ -111,6 +135,7 @@
 
   // LEGS
   .leg {
+    z-index: var(--leg-z-index);
     top: 436px;
     width: var(--leg-width);
     height: var(--leg-height);
@@ -132,6 +157,7 @@
 
   // FEET
   .foot {
+    z-index: var(--foot-z-index);
     top: 531px;
     width: var(--foot-width);
     height: var(--foot-height);
@@ -163,7 +189,7 @@
   position: relative;
   background-color: #53555d;
   border-radius: 10px;
-  
+
   &--horizontal {
     left: -35%;
     width: 300px;
