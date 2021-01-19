@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-function useRandomWord() {
+export function useRandomWord() {
   const [word, setWord] = React.useState('');
   const [status, setStatus] = React.useState('idle');
-  const [error, setError] = React.useState(null);
 
   // Fetches random world from WordsAPI
   const fetchRandomWord = React.useCallback(async () => {
@@ -23,18 +22,12 @@ function useRandomWord() {
 
       const { word: fetchedWord } = await response.json();
 
-      // If the word is too long fetch new one
-      if (fetchedWord.length > 11) {
-        fetchRandomWord();
-      } else {
-        setWord(fetchedWord.toUpperCase());
-        setStatus('resolved');
-      }
+      setStatus('resolved');
+      setWord(fetchedWord.toUpperCase());
     } catch (e) {
       setStatus('rejected');
-      setError(e);
 
-      console.log(e);
+      // console.log(e.message);
     }
   }, []);
 
@@ -43,7 +36,5 @@ function useRandomWord() {
     fetchRandomWord();
   }, [fetchRandomWord]);
 
-  return [{ status, randomWord: word, error }, fetchRandomWord];
+  return { status, randomWord: word, fetchRandomWord };
 }
-
-export default useRandomWord;

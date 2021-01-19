@@ -4,13 +4,16 @@ import Folk from 'components/folk';
 import YouMissed from 'components/you-missed';
 import Letters from 'components/letters';
 import Layout from 'components/layout';
-import useRandomWord from 'hooks/use-random-word';
 import Modal from 'components/modal';
+import { useRandomWord } from 'hooks/use-random-word';
+
+export const MAX_WORD_LENGTH = 11;
+export const MAX_MISSED_LETTERS = 11;
 
 function App() {
   const [isFirstGame, setIsFirstGame] = React.useState(true);
   const [usedLetters, setUsedLetters] = React.useState([]);
-  const [{ randomWord, status }, fetchRandomWord] = useRandomWord();
+  const { randomWord, status, fetchRandomWord } = useRandomWord();
 
   // Add/remove key down event listener
   React.useEffect(() => {
@@ -30,6 +33,13 @@ function App() {
     };
   }, [usedLetters]);
 
+  // When random word is too long fetches new one
+  React.useEffect(() => {
+    if (randomWord.length > MAX_WORD_LENGTH) {
+      fetchRandomWord();
+    }
+  }, [randomWord, fetchRandomWord]);
+
   // Fetches new word and resets the used letters
   const startNewGame = () => {
     setUsedLetters([]);
@@ -44,8 +54,8 @@ function App() {
   const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
   const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
 
-  // Game ends once folk earns left foot, this happens on 11th step.
-  const isGameOver = missedLetters.length === 11;
+  // Game is lost when player user reached steps limit
+  const isGameOver = missedLetters.length === MAX_MISSED_LETTERS;
 
   // Game is won when each letter of the random word can be found
   // among the guessed letters
