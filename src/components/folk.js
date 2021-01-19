@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import './folk.scss';
 
+// Folk's parts are in the order that they are rendered
+// during the game.
 const folkParts = [
   'head',
   'neck',
@@ -15,12 +17,12 @@ const folkParts = [
   'foot foot--left',
 ];
 
-function Folk({ visiblePartsCount = 0 }) {
+function Folk({ visiblePartsCount }) {
   const visibleParts = folkParts.slice(0, visiblePartsCount);
 
   return (
     <FolkContainer>
-      <div className="folk">
+      <div className="folk" data-testid="folk">
         {visibleParts.map((part) => (
           <div key={part} className={part} />
         ))}
@@ -30,9 +32,10 @@ function Folk({ visiblePartsCount = 0 }) {
 }
 
 Folk.propTypes = {
-  visiblePartsCount: PropTypes.number,
+  visiblePartsCount: PropTypes.number.isRequired,
 };
 
+// Wraps the folk and adds the bar so it's easier to position it
 function FolkContainer({ children }) {
   return (
     <div className="folk-container">

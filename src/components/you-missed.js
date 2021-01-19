@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './you-missed.scss';
 
-function YouMissed({ missedLetters = [] }) {
+function YouMissed({ missedLetters }) {
   return (
     <div className="you-missed">
       <div className="title">You missed:</div>
@@ -11,7 +11,7 @@ function YouMissed({ missedLetters = [] }) {
 }
 
 YouMissed.propTypes = {
-  missedLetters: PropTypes.arrayOf(PropTypes.string),
+  missedLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default YouMissed;

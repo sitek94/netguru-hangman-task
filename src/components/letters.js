@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import Letter from 'components/letter';
 import './letters.scss';
 
-function Letters({ word, guessedLetters = [], maxWordLength = 11 }) {
+const MAX_WORD_LENGTH = 11;
+
+function Letters({ word, guessedLetters }) {
   const wordLetters = word
     // Pad the word when its length is less than max length
-    .padStart(maxWordLength)
+    .padStart(MAX_WORD_LENGTH)
     .split('');
 
   return (
@@ -20,8 +22,8 @@ function Letters({ word, guessedLetters = [], maxWordLength = 11 }) {
 }
 
 Letters.propTypes = {
-  guessedLetters: PropTypes.arrayOf(PropTypes.string),
-  word: PropTypes.string,
+  guessedLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  word: PropTypes.string.isRequired,
 };
 
 export default Letters;
