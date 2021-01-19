@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/netguru-hangman-task/static/css/main.86a1b407.chunk.css",
+    "main.js": "/netguru-hangman-task/static/js/main.1f5fdc0e.chunk.js",
+    "main.js.map": "/netguru-hangman-task/static/js/main.1f5fdc0e.chunk.js.map",
+    "runtime-main.js": "/netguru-hangman-task/static/js/runtime-main.eaab0b08.js",
+    "runtime-main.js.map": "/netguru-hangman-task/static/js/runtime-main.eaab0b08.js.map",
+    "static/js/2.18b82229.chunk.js": "/netguru-hangman-task/static/js/2.18b82229.chunk.js",
+    "static/js/2.18b82229.chunk.js.map": "/netguru-hangman-task/static/js/2.18b82229.chunk.js.map",
+    "index.html": "/netguru-hangman-task/index.html",
+    "static/css/main.86a1b407.chunk.css.map": "/netguru-hangman-task/static/css/main.86a1b407.chunk.css.map",
+    "static/js/2.18b82229.chunk.js.LICENSE.txt": "/netguru-hangman-task/static/js/2.18b82229.chunk.js.LICENSE.txt",
+    "static/media/fonts.scss": "/netguru-hangman-task/static/media/AllerDisplay.18b4b286.ttf",
+    "static/media/folk.scss": "/netguru-hangman-task/static/media/head.1d5a8cfb.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eaab0b08.js",
+    "static/js/2.18b82229.chunk.js",
+    "static/css/main.86a1b407.chunk.css",
+    "static/js/main.1f5fdc0e.chunk.js"
+  ]
+}
