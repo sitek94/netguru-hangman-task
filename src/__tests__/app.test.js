@@ -130,4 +130,20 @@ describe('<App>', () => {
       userEvent.click(screen.getByRole('button', { name: /again/i }));
     });
   });
+
+  describe(`when "initial", "game-won", "game-over", "loading" or "error" screen is shown`, () => {
+    it('does nothing on key down event', async () => {
+      jest.spyOn(hooks, 'useRandomWord').mockReturnValue({
+        randomWord: 'HANGMAN',
+        status: 'resolved',
+        fetchRandomWord: jest.fn(),
+      });
+
+      await act(async () => render(<App />));
+
+      userEvent.type(document.activeElement, 'HANGMAN');
+
+      expect(screen.getByText(/Start game/i)).toBeInTheDocument();
+    });
+  });
 });

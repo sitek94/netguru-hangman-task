@@ -15,11 +15,33 @@ function App() {
   const [usedLetters, setUsedLetters] = React.useState([]);
   const { randomWord, status, fetchRandomWord } = useRandomWord();
 
+  const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
+  const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
+
+  // Game is lost when player user reached steps limit
+  const isGameOver = missedLetters.length === MAX_MISSED_LETTERS;
+
+  // Game is won when each letter of the random word can be found
+  // among the guessed letters
+  const isGameWon = randomWord
+    .split('')
+    .every((l) => guessedLetters.includes(l));
+
+  // Fetch status
+  const isLoading = status === 'pending';
+  const isError = status === 'rejected';
+  const isSuccess = status === 'resolved';
+
   // Add/remove key down event listener
   React.useEffect(() => {
     const handleKeyDown = ({ key }) => {
-      // Pressed key is not alphabetical or has been used already
+      // If pressed key is not alphabetical or has been used already do nothing
       if (!/^[a-z]$/i.test(key) || usedLetters.includes(key.toUpperCase())) {
+        return;
+      }
+      // If one of the screens `initial`, `game-won`, `game-over`, `loading`, 
+      //`error` is shown do nothing
+      if (isFirstGame || isGameWon || isGameOver || isLoading || isError) {
         return;
       }
 
@@ -31,7 +53,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [usedLetters]);
+  }, [usedLetters, isFirstGame, isGameWon, isGameOver, isLoading, isError]);
 
   // When random word is too long fetches new one
   React.useEffect(() => {
@@ -51,24 +73,7 @@ function App() {
     setIsFirstGame(false);
   };
 
-  const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
-  const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
-
-  // Game is lost when player user reached steps limit
-  const isGameOver = missedLetters.length === MAX_MISSED_LETTERS;
-
-  // Game is won when each letter of the random word can be found
-  // among the guessed letters
-  const isGameWon = randomWord
-    .split('')
-    .every((l) => guessedLetters.includes(l));
-
-  // Fetch status
-  const isLoading = status === 'pending';
-  const isError = status === 'rejected';
-  const isSuccess = status === 'resolved';
-
-  // Initial game
+  // Initial game screen
   if (isFirstGame) {
     return (
       <Layout>
@@ -90,7 +95,10 @@ function App() {
   // After the initial game
   return (
     <Layout>
+      {/* Loading screen */}
       {isLoading && <Modal title="Loading..." noButton />}
+
+      {/* Error screen */}
       {isError && (
         <Modal
           title="Ooops :("
@@ -98,6 +106,8 @@ function App() {
           noButton
         />
       )}
+
+      {/* Game over screen */}
       {isGameOver && isSuccess && (
         <Modal
           title="Game over"
@@ -105,6 +115,8 @@ function App() {
           onButtonClick={startNewGame}
         />
       )}
+
+      {/* Game won screen */}
       {isGameWon && isSuccess && (
         <Modal
           title="You won!"
@@ -113,6 +125,7 @@ function App() {
           onButtonClick={startNewGame}
         />
       )}
+
       <Folk visiblePartsCount={missedLetters.length} />
       <YouMissed missedLetters={missedLetters} />
       <Letters word={randomWord} guessedLetters={guessedLetters} />
