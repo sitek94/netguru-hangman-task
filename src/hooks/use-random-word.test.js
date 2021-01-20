@@ -32,6 +32,7 @@ describe('useRandomWord hook', () => {
     await act(async () => result.current.fetchRandomWord());
 
     expect(result.current.status).toBe('resolved');
+    expect(result.current.randomWord).toBe('HANGMAN');
   });
 
   it('handles state when failed to fetch a word', async () => {
