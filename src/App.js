@@ -92,6 +92,10 @@ function App() {
     );
   }
 
+  // When the word is too long, before new one is fetched use empty string 
+  // to so that <Letters> is semi-transparent
+  const word = randomWord.length > MAX_WORD_LENGTH ? '' : randomWord;
+
   // After the initial game
   return (
     <Layout>
@@ -128,7 +132,7 @@ function App() {
 
       <Folk visiblePartsCount={missedLetters.length} />
       <YouMissed missedLetters={missedLetters} />
-      <Letters word={randomWord} guessedLetters={guessedLetters} />
+      <Letters word={word} guessedLetters={guessedLetters} />
     </Layout>
   );
 }
