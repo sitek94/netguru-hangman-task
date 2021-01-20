@@ -48,4 +48,16 @@ describe('useRandomWord hook', () => {
 
     expect(result.current.status).toBe('rejected');
   });
+
+  it('handles state when failed to convert json', async () => {
+    jest.spyOn(global, 'fetch').mockReturnValue({
+      json: () => Promise.reject({ message: 'Failed to convert json' }),
+    });
+
+    const { result } = renderHook(useRandomWord);
+
+    await act(async () => result.current.fetchRandomWord());
+
+    expect(result.current.status).toBe('rejected');
+  });
 });
