@@ -1,7 +1,7 @@
 @import '../sass/media-queries.scss';
 
 .layout {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +20,11 @@
   box-shadow: var(--box-shadow);
   position: relative;
   overflow: hidden;
+  
+  @media only screen and (max-height: 900px) {
+    height: 100%;
+    padding: 25px;
+  }
 
   &::before {
     content: '';
@@ -40,4 +45,6 @@
       border-radius: 0;
     }
   }
+
+  
 }
