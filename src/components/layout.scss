@@ -10,7 +10,7 @@
 
 .container {
   width: 1687px;
-  height: 980px;
+  height: 900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 140px;
@@ -20,7 +20,7 @@
   box-shadow: var(--box-shadow);
   position: relative;
   overflow: hidden;
-  
+
   @media only screen and (max-height: 900px) {
     height: 100%;
     padding: 25px;
@@ -45,6 +45,4 @@
       border-radius: 0;
     }
   }
-
-  
 }
