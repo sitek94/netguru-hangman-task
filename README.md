@@ -1,5 +1,9 @@
 # Simple Hangman Game
 
+This project is based on [Netguru's Recruitment Task from 2018](https://github.com/netguru/frontend-recruitment-task). 
+
+It's a simple Hangman game that uses [WordsAPI](https://www.wordsapi.com/).
+
 ## Installation
 
 1. Register at [WordsAPI](https://www.wordsapi.com/) to get your API key.
