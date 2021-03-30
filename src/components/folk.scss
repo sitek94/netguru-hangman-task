@@ -181,12 +181,15 @@
 // FOLK's CONTAINER
 .folk-container {
   position: absolute;
-  top: var(--container-padding);
-  left: var(--container-padding);
+  top: calc(var(--container-padding) - 25px);
+  left: calc(var(--container-padding) - 25px);
   width: 320px;
   height: 626px;
+  transform: scale(0.8);
 
   @include respond(lg) {
+    top: var(--container-padding);
+    left: var(--container-padding);
     transform: scale(0.7);
     transform-origin: top left;
   }
