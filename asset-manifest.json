@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/netguru-hangman-task/static/css/main.186310ca.chunk.css",
-    "main.js": "/netguru-hangman-task/static/js/main.3b9aeeaa.chunk.js",
-    "main.js.map": "/netguru-hangman-task/static/js/main.3b9aeeaa.chunk.js.map",
-    "runtime-main.js": "/netguru-hangman-task/static/js/runtime-main.eaab0b08.js",
-    "runtime-main.js.map": "/netguru-hangman-task/static/js/runtime-main.eaab0b08.js.map",
-    "static/js/2.18b82229.chunk.js": "/netguru-hangman-task/static/js/2.18b82229.chunk.js",
-    "static/js/2.18b82229.chunk.js.map": "/netguru-hangman-task/static/js/2.18b82229.chunk.js.map",
-    "index.html": "/netguru-hangman-task/index.html",
-    "static/css/main.186310ca.chunk.css.map": "/netguru-hangman-task/static/css/main.186310ca.chunk.css.map",
-    "static/js/2.18b82229.chunk.js.LICENSE.txt": "/netguru-hangman-task/static/js/2.18b82229.chunk.js.LICENSE.txt",
-    "static/media/fonts.scss": "/netguru-hangman-task/static/media/AllerDisplay.18b4b286.ttf",
-    "static/media/folk.scss": "/netguru-hangman-task/static/media/head.1d5a8cfb.png"
+    "main.css": "/hangman-game/static/css/main.05478895.chunk.css",
+    "main.js": "/hangman-game/static/js/main.1998f1ca.chunk.js",
+    "main.js.map": "/hangman-game/static/js/main.1998f1ca.chunk.js.map",
+    "runtime-main.js": "/hangman-game/static/js/runtime-main.96209a11.js",
+    "runtime-main.js.map": "/hangman-game/static/js/runtime-main.96209a11.js.map",
+    "static/js/2.b4806efe.chunk.js": "/hangman-game/static/js/2.b4806efe.chunk.js",
+    "static/js/2.b4806efe.chunk.js.map": "/hangman-game/static/js/2.b4806efe.chunk.js.map",
+    "index.html": "/hangman-game/index.html",
+    "static/css/main.05478895.chunk.css.map": "/hangman-game/static/css/main.05478895.chunk.css.map",
+    "static/js/2.b4806efe.chunk.js.LICENSE.txt": "/hangman-game/static/js/2.b4806efe.chunk.js.LICENSE.txt",
+    "static/media/fonts.scss": "/hangman-game/static/media/AllerDisplay.18b4b286.ttf",
+    "static/media/folk.scss": "/hangman-game/static/media/head.1d5a8cfb.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.eaab0b08.js",
-    "static/js/2.18b82229.chunk.js",
-    "static/css/main.186310ca.chunk.css",
-    "static/js/main.3b9aeeaa.chunk.js"
+    "static/js/runtime-main.96209a11.js",
+    "static/js/2.b4806efe.chunk.js",
+    "static/css/main.05478895.chunk.css",
+    "static/js/main.1998f1ca.chunk.js"
   ]
 }
