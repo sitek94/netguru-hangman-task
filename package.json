@@ -1,7 +1,7 @@
 {
-  "name": "netguru-hangman-task",
+  "name": "hangman-game",
   "author": "Maciek Sitkowski",
-  "homepage": "https://sitek94.github.io/netguru-hangman-task",
+  "homepage": "https://sitek94.github.io/hangman-game",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
