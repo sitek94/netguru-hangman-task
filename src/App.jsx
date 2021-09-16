@@ -77,7 +77,7 @@ function App() {
       <Layout>
         <Modal
           title="Netguru Hangman"
-          description={`This is a simple Hangman game, have fun and good luck!`}
+          description="This is a simple Hangman game, have fun and good luck!"
           buttonText="Start game"
           onButtonClick={startFirstGame}
         />
