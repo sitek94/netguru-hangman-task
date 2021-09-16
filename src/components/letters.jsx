@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Letter from 'components/letter';
-import { MAX_WORD_LENGTH } from 'app';
+import { MAX_WORD_LENGTH } from 'App';
 import './letters.scss';
 
 function Letters({ word, guessedLetters }) {
