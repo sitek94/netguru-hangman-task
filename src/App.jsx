@@ -15,17 +15,15 @@ function App() {
   const [usedLetters, setUsedLetters] = React.useState([]);
   const { randomWord, status, fetchRandomWord } = useRandomWord();
 
-  const missedLetters = usedLetters.filter((l) => !randomWord.includes(l));
-  const guessedLetters = usedLetters.filter((l) => randomWord.includes(l));
+  const missedLetters = usedLetters.filter(l => !randomWord.includes(l));
+  const guessedLetters = usedLetters.filter(l => randomWord.includes(l));
 
   // Game is lost when player user reached steps limit
   const isGameOver = missedLetters.length === MAX_MISSED_LETTERS;
 
   // Game is won when each letter of the random word can be found
   // among the guessed letters
-  const isGameWon = randomWord
-    .split('')
-    .every((l) => guessedLetters.includes(l));
+  const isGameWon = randomWord.split('').every(l => guessedLetters.includes(l));
 
   // Fetch status
   const isLoading = status === 'pending';
@@ -39,7 +37,7 @@ function App() {
       if (!/^[a-z]$/i.test(key) || usedLetters.includes(key.toUpperCase())) {
         return;
       }
-      // If one of the screens `initial`, `game-won`, `game-over`, `loading`, 
+      // If one of the screens `initial`, `game-won`, `game-over`, `loading`,
       //`error` is shown do nothing
       if (isFirstGame || isGameWon || isGameOver || isLoading || isError) {
         return;
@@ -92,7 +90,7 @@ function App() {
     );
   }
 
-  // When the word is too long, before new one is fetched use empty string 
+  // When the word is too long, before new one is fetched use empty string
   // to so that <Letters> is semi-transparent
   const word = randomWord.length > MAX_WORD_LENGTH ? '' : randomWord;
 

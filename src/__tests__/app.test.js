@@ -9,7 +9,7 @@ describe('<App>', () => {
       render(<App />);
 
       expect(
-        screen.getByRole('button', { name: /start game/i })
+        screen.getByRole('button', { name: /start game/i }),
       ).toBeInTheDocument();
     });
 

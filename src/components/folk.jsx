@@ -23,7 +23,7 @@ function Folk({ visiblePartsCount }) {
   return (
     <FolkContainer>
       <div className="folk" data-testid="folk">
-        {visibleParts.map((part) => (
+        {visibleParts.map(part => (
           <div key={part} className={part} />
         ))}
       </div>

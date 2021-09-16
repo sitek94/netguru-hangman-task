@@ -17,7 +17,7 @@ export function useRandomWord() {
             'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY,
             'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST,
           },
-        }
+        },
       );
 
       const { word: fetchedWord } = await response.json();

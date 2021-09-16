@@ -4,11 +4,11 @@ import { act, renderHook } from '@testing-library/react-hooks';
 describe('useRandomWord hook', () => {
   it('handles state when is fetching a word', async () => {
     jest.spyOn(global, 'fetch').mockReturnValue(
-      new Promise((resolve) => {
+      new Promise(resolve => {
         resolve({
           json: () => Promise.resolve({ word: 'sth' }),
         });
-      })
+      }),
     );
 
     const { result } = renderHook(useRandomWord);
@@ -24,7 +24,7 @@ describe('useRandomWord hook', () => {
     jest.spyOn(global, 'fetch').mockReturnValue(
       Promise.resolve({
         json: () => Promise.resolve({ word: 'hangman' }),
-      })
+      }),
     );
 
     const { result } = renderHook(useRandomWord);
@@ -39,7 +39,7 @@ describe('useRandomWord hook', () => {
     jest
       .spyOn(global, 'fetch')
       .mockReturnValue(
-        Promise.reject({ message: 'Failed to fetch a random word' })
+        Promise.reject({ message: 'Failed to fetch a random word' }),
       );
 
     const { result } = renderHook(useRandomWord);
