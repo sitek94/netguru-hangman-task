@@ -10,10 +10,10 @@ import { useRandomWord } from 'hooks/use-random-word';
 export const MAX_WORD_LENGTH = 11;
 export const MAX_MISSED_LETTERS = 11;
 
-function App() {
+function App({ api }) {
   const [isFirstGame, setIsFirstGame] = React.useState(true);
   const [usedLetters, setUsedLetters] = React.useState([]);
-  const { randomWord, status, fetchRandomWord } = useRandomWord();
+  const { randomWord, status, fetchRandomWord } = useRandomWord(api);
 
   const missedLetters = usedLetters.filter(l => !randomWord.includes(l));
   const guessedLetters = usedLetters.filter(l => randomWord.includes(l));

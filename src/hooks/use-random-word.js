@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export function useRandomWord() {
+export function useRandomWord(api) {
   const [word, setWord] = React.useState('');
   const [status, setStatus] = React.useState('idle');
 
@@ -9,27 +9,16 @@ export function useRandomWord() {
     setStatus('pending');
 
     try {
-      const response = await fetch(
-        `https://wordsapiv1.p.rapidapi.com/words/?random=true`,
-        {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY,
-            'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST,
-          },
-        },
-      );
-
-      const { word: fetchedWord } = await response.json();
-
+      const fetchedWord = await api.getRandomWord();
+      console.log(fetchedWord);
       setStatus('resolved');
       setWord(fetchedWord.toUpperCase());
     } catch (e) {
       setStatus('rejected');
 
-      // console.log(e.message);
+      console.error(e);
     }
-  }, []);
+  }, [api]);
 
   // Initial fetch
   React.useEffect(() => {
