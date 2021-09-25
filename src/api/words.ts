@@ -2,11 +2,11 @@ import config from '../config';
 
 const url = `https://${config.rapidApi.host}/words/?random=true`;
 
-interface WordsApi {
+export interface WordsApi {
   getRandomWord(): Promise<string>;
 }
 
-export class ProdApi implements WordsApi {
+const prodApi: WordsApi = {
   async getRandomWord() {
     const response = await fetch(url, {
       method: 'GET',
@@ -16,20 +16,20 @@ export class ProdApi implements WordsApi {
       },
     });
     const { word } = await response.json();
-    return word as string;
-  }
+    if (typeof word === 'string') {
+      return word;
+    }
+    throw new Error(`☠️ There something's wrong with the "word"`);
+  },
+};
+
+function createDevApi(words: string[]): WordsApi {
+  let index = 0;
+  return {
+    async getRandomWord() {
+      return words[index++ % words.length];
+    },
+  };
 }
 
-export class DevApi implements WordsApi {
-  constructor(private words: string[]) {}
-
-  private index = 0;
-
-  /**
-   * Each call returns a next word from the list of available words, when there
-   * no more words, starts over from 1.
-   */
-  async getRandomWord() {
-    return this.words[this.index++ % this.words.length];
-  }
-}
+export { prodApi, createDevApi };

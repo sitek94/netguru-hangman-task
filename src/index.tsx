@@ -5,9 +5,12 @@ import App from './App';
 import 'fonts/fonts.scss';
 import 'index.scss';
 
-import { DevApi } from './api/words';
+import { prodApi, createDevApi } from './api/words';
+import config from './config';
 
-const api = new DevApi(['maciek', 'a', 'mac-iek']);
+const api = config.isProd
+  ? prodApi
+  : createDevApi(['maciek', 'a', 'word', 'test']);
 
 ReactDOM.render(
   <React.StrictMode>
