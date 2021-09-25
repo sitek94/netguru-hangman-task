@@ -1,18 +1,23 @@
 import * as React from 'react';
 
-import Folk from 'components/folk';
-import YouMissed from 'components/you-missed';
-import Letters from 'components/letters';
-import Layout from 'components/layout';
-import Modal from 'components/modal';
+import { MAX_MISSED_LETTERS, MAX_WORD_LENGTH } from 'constants/game';
+
+import Folk from 'components/Folk';
+import YouMissed from 'components/YouMissed';
+import LetterTiles from 'components/LetterTiles';
+import Layout from 'components/Layout';
+import Modal from 'components/Modal';
+
 import { useRandomWord } from 'hooks/use-random-word';
+import { WordsApi } from '../../api/words';
 
-export const MAX_WORD_LENGTH = 11;
-export const MAX_MISSED_LETTERS = 11;
+interface AppProps {
+  api: WordsApi;
+}
 
-function App({ api }) {
+function App({ api }: AppProps) {
   const [isFirstGame, setIsFirstGame] = React.useState(true);
-  const [usedLetters, setUsedLetters] = React.useState([]);
+  const [usedLetters, setUsedLetters] = React.useState<string[]>([]);
   const { randomWord, status, fetchRandomWord } = useRandomWord(api);
 
   const missedLetters = usedLetters.filter(l => !randomWord.includes(l));
@@ -32,13 +37,19 @@ function App({ api }) {
 
   // Add/remove key down event listener
   React.useEffect(() => {
-    const handleKeyDown = ({ key }) => {
-      // If pressed key is not alphabetical or has been used already do nothing
-      if (!/^[a-z]$/i.test(key) || usedLetters.includes(key.toUpperCase())) {
+    const handleKeyDown = ({ key }: KeyboardEvent) => {
+      // Pressed key is not alphabetical
+      if (!/^[a-z]$/i.test(key)) {
         return;
       }
-      // If one of the screens `initial`, `game-won`, `game-over`, `loading`,
-      //`error` is shown do nothing
+
+      // Pressed key been used already
+      if (usedLetters.includes(key.toUpperCase())) {
+        return;
+      }
+
+      // One of the screens `initial`, `game-won`, `game-over`, `loading`,
+      // `error` is shown
       if (isFirstGame || isGameWon || isGameOver || isLoading || isError) {
         return;
       }
@@ -85,13 +96,13 @@ function App({ api }) {
         <YouMissed
           missedLetters={['B', 'D', 'E', 'Z', 'P', 'U', 'K', 'L', 'Q', 'W']}
         />
-        <Letters word="HANGMAN" guessedLetters={['H', 'A']} />
+        <LetterTiles word="HANGMAN" guessedLetters={['H', 'A']} />
       </Layout>
     );
   }
 
   // When the word is too long, before new one is fetched use empty string
-  // to so that <Letters> is semi-transparent
+  // to so that <LetterTile> is semi-transparent
   const word = randomWord.length > MAX_WORD_LENGTH ? '' : randomWord;
 
   // After the initial game
@@ -130,7 +141,7 @@ function App({ api }) {
 
       <Folk visiblePartsCount={missedLetters.length} />
       <YouMissed missedLetters={missedLetters} />
-      <Letters word={word} guessedLetters={guessedLetters} />
+      <LetterTiles word={word} guessedLetters={guessedLetters} />
     </Layout>
   );
 }

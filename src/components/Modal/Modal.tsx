@@ -2,7 +2,7 @@ import './Modal.scss';
 
 interface CommonModalProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
 type ButtonModalProps =

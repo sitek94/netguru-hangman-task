@@ -1,8 +1,12 @@
 import * as React from 'react';
 
-export function useRandomWord(api) {
+import { WordsApi } from '../api/words';
+
+type Status = 'idle' | 'pending' | 'resolved' | 'rejected';
+
+export function useRandomWord(api: WordsApi) {
   const [word, setWord] = React.useState('');
-  const [status, setStatus] = React.useState('idle');
+  const [status, setStatus] = React.useState<Status>('idle');
 
   // Fetches random world from WordsAPI
   const fetchRandomWord = React.useCallback(async () => {
@@ -10,7 +14,6 @@ export function useRandomWord(api) {
 
     try {
       const fetchedWord = await api.getRandomWord();
-      console.log(fetchedWord);
       setStatus('resolved');
       setWord(fetchedWord.toUpperCase());
     } catch (e) {
@@ -25,5 +28,13 @@ export function useRandomWord(api) {
     fetchRandomWord();
   }, [fetchRandomWord]);
 
-  return { status, randomWord: word, fetchRandomWord };
+  return {
+    status,
+    fetchRandomWord,
+    randomWord: word,
+    isIdle: status === 'idle',
+    isPending: status === 'pending',
+    isResolved: status === 'resolved',
+    isRejected: status === 'rejected',
+  };
 }

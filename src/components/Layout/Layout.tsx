@@ -8,7 +8,7 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   return (
-    <div className="layout">
+    <div data-testid="layout" className="layout">
       <div className="container">{children}</div>
     </div>
   );

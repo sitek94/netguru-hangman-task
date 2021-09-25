@@ -26,6 +26,10 @@ const prodApi: WordsApi = {
 function createDevApi(words: string[]): WordsApi {
   let index = 0;
   return {
+    /**
+     * On each call gets next word from the list. When no more words, starts from
+     * the beginning.
+     */
     async getRandomWord() {
       return words[index++ % words.length];
     },
