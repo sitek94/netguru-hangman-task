@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types';
-import './you-missed.scss';
+import './YouMissed.scss';
 
-function YouMissed({ missedLetters }) {
+interface YouMissedProps {
+  missedLetters: string[];
+}
+
+function YouMissed({ missedLetters }: YouMissedProps) {
   return (
     <div className="you-missed">
       <div className="title">You missed:</div>
@@ -9,9 +12,5 @@ function YouMissed({ missedLetters }) {
     </div>
   );
 }
-
-YouMissed.propTypes = {
-  missedLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 export default YouMissed;

@@ -1,5 +1,6 @@
-import YouMissed from 'components/you-missed';
 import { render, screen } from '@testing-library/react';
+
+import YouMissed from './YouMissed';
 
 describe('<YouMissed>', () => {
   it('renders correctly', () => {
