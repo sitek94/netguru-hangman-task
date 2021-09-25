@@ -1,4 +1,4 @@
-import Folk from 'components/folk';
+import Folk from 'components/Folk/Folk';
 import { render, screen } from '@testing-library/react';
 
 describe('<Folk>', () => {
