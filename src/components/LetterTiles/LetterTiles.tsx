@@ -1,3 +1,5 @@
+import './LetterTiles.scss';
+
 import LetterTile from './LetterTile';
 import { MAX_WORD_LENGTH } from 'constants/game';
 

@@ -1,0 +1,73 @@
+@import '../../sass/media-queries';
+
+.modal {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(var(--background-dark-rgb), 0.74);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    color: var(--white);
+    font-size: 9.2rem;
+    text-transform: uppercase;
+  }
+
+  .description {
+    margin-top: 15px;
+    color: var(--white);
+    font-size: 3.2rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .button {
+    margin-top: 45px;
+    text-transform: uppercase;
+    font-family: var(--font-family);
+    font-size: 3.2rem;
+    padding: 37px 85px;
+    border: 0;
+    outline: 0;
+    color: var(--gold);
+    background-color: transparent;
+    cursor: pointer;
+    /*
+      Border generated from:
+      https://kovart.github.io/dashed-border-generator/
+    */
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='47' ry='47' stroke='%23FFBA00FF' stroke-width='8' stroke-dasharray='10, 14' stroke-dashoffset='3' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 49px;
+    transition: all 300ms ease;
+
+    &:focus,
+    &:hover {
+      background-color: rgba(var(--gold-rgb), 0.2);
+      box-shadow: var(--box-shadow);
+    }
+  }
+
+  @include respond(lg) {
+    .title {
+      font-size: 5.5rem;
+    }
+    .description {
+      max-width: 350px;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+    .button {
+      font-size: 2.5rem;
+      padding: 20px 40px;
+      background-image: none;
+      border: 5px solid var(--gold);
+    }
+  }
+}
