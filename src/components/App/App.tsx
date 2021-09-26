@@ -14,7 +14,8 @@ import { useRandomWord } from 'hooks/use-random-word';
 function App() {
   const [isFirstGame, setIsFirstGame] = React.useState(true);
   const [usedLetters, setUsedLetters] = React.useState<string[]>([]);
-  const { randomWord, status, fetchRandomWord } = useRandomWord();
+  const { randomWord, fetchRandomWord, isPending, isResolved, isRejected } =
+    useRandomWord();
 
   const missedLetters = usedLetters.filter(l => !randomWord.includes(l));
   const guessedLetters = usedLetters.filter(l => randomWord.includes(l));
@@ -25,11 +26,6 @@ function App() {
   // Game is won when each letter of the random word can be found
   // among the guessed letters
   const isGameWon = randomWord.split('').every(l => guessedLetters.includes(l));
-
-  // Fetch status
-  const isLoading = status === 'pending';
-  const isError = status === 'rejected';
-  const isSuccess = status === 'resolved';
 
   // Add/remove key down event listener
   React.useEffect(() => {
@@ -46,7 +42,7 @@ function App() {
 
       // One of the screens `initial`, `game-won`, `game-over`, `loading`,
       // `error` is shown
-      if (isFirstGame || isGameWon || isGameOver || isLoading || isError) {
+      if (isFirstGame || isGameWon || isGameOver || isPending || isRejected) {
         return;
       }
 
@@ -58,7 +54,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [usedLetters, isFirstGame, isGameWon, isGameOver, isLoading, isError]);
+  }, [usedLetters, isFirstGame, isGameWon, isGameOver, isPending, isRejected]);
 
   // Fetches new word and resets the used letters
   const startNewGame = () => {
@@ -99,10 +95,10 @@ function App() {
   return (
     <Layout>
       {/* Loading screen */}
-      {isLoading && <Modal title={screens.loading.title} noButton />}
+      {isPending && <Modal title={screens.loading.title} noButton />}
 
       {/* Error screen */}
-      {isError && (
+      {isRejected && (
         <Modal
           title={screens.error.title}
           description={screens.error.description}
@@ -111,7 +107,7 @@ function App() {
       )}
 
       {/* Game over screen */}
-      {isGameOver && isSuccess && (
+      {isResolved && isGameOver && (
         <Modal
           title={screens.gameLost.title}
           buttonText={screens.gameLost.button}
@@ -120,7 +116,7 @@ function App() {
       )}
 
       {/* Game won screen */}
-      {isGameWon && isSuccess && (
+      {isResolved && isGameWon && (
         <Modal
           title={screens.gameWon.title}
           buttonText={screens.gameWon.button}
