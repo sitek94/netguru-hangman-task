@@ -1,15 +1,13 @@
 import * as React from 'react';
 
+import { WordsApi } from 'api/words';
 import { MAX_MISSED_LETTERS, MAX_WORD_LENGTH } from 'constants/game';
-
-import Folk from 'components/Folk';
-import YouMissed from 'components/YouMissed';
-import LetterTiles from 'components/LetterTiles';
-import Layout from 'components/Layout';
-import Modal from 'components/Modal';
-
 import { useRandomWord } from 'hooks/use-random-word';
-import { WordsApi } from '../../api/words';
+import Folk from 'components/Folk';
+import Layout from 'components/Layout';
+import LetterTiles from 'components/LetterTiles';
+import Modal from 'components/Modal';
+import YouMissed from 'components/YouMissed';
 
 interface AppProps {
   api: WordsApi;

@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { WordsApi } from 'api/words';
+import { flushPromises } from 'test/utils';
 
 import App from './App';
-import { flushPromises } from 'test/utils';
 
 // Custom render
 const renderApp = (api: WordsApi) => render(<App api={api} />);

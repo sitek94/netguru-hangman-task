@@ -1,6 +1,6 @@
-import * as React from 'react';
-
 import './Layout.scss';
+
+import * as React from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
