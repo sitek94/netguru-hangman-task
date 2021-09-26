@@ -7,8 +7,9 @@
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
     "build": "react-scripts build",
+    "start": "react-scripts start",
+    "start:msw": "REACT_APP_ENABLE_MSW=true react-scripts start",
     "test": "react-scripts test",
     "test:coverage": "yarn test --coverage --watchAll",
     "eject": "react-scripts eject",

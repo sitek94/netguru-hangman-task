@@ -10,3 +10,13 @@ export const getEnv = (name: string): string => {
 
   return value;
 };
+
+export const getBoolEnv = (name: string): boolean => {
+  const value = getEnv(name);
+
+  if (value !== 'true' && value !== 'false') {
+    throw new Error(`"${name}" ENV variable has to be a boolean`);
+  }
+
+  return Boolean(value);
+};

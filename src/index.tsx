@@ -5,11 +5,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from 'components/App/App';
-import { isDevelopment, project } from 'config';
+import { isDevelopment, isMSWEnabled, project } from 'config';
 
 async function main() {
   // Conditionally enable Mock Service Worker
-  if (isDevelopment) {
+  if (isDevelopment && isMSWEnabled) {
     // Make sure that your url is rewriten to use / at the end of the pathname.
     // https://mswjs.io/docs/getting-started/integrate/browser#using-homepage-property-in-packagejson
     if (window.location.pathname === project.pathname) {
