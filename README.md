@@ -10,9 +10,9 @@ It's a simple Hangman game that uses [WordsAPI](https://www.wordsapi.com/).
 
 2. Create `.env` file at the root directory.
 
-```env
-REACT_APP_RAPIDAPI_KEY="your-words-api-key"
-REACT_APP_RAPIDAPI_HOST="wordsapiv1.p.rapidapi.com"
+```index
+REACT_APP_WORDS_API_KEY="your-words-api-key"
+REACT_APP_WORDS_API_HOST="wordsapiv1.p.rapidapi.com"
 ```
 
 3. Install NPM dependencies.

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { WordsApi } from '../api/words';
+import { getRandomWord } from 'api/words';
 
 type Status = 'idle' | 'pending' | 'resolved' | 'rejected';
 
-export function useRandomWord(api: WordsApi) {
+export function useRandomWord() {
   const [word, setWord] = React.useState('');
   const [status, setStatus] = React.useState<Status>('idle');
 
@@ -13,7 +13,10 @@ export function useRandomWord(api: WordsApi) {
     setStatus('pending');
 
     try {
-      const fetchedWord = await api.getRandomWord();
+      const fetchedWord = await getRandomWord();
+
+      // If the word exceeds "maxLength", recursively call fetchRandomWord again
+      // until there will be word with correct length.
       setStatus('resolved');
       setWord(fetchedWord.toUpperCase());
     } catch (e) {
@@ -21,7 +24,7 @@ export function useRandomWord(api: WordsApi) {
 
       console.error(e);
     }
-  }, [api]);
+  }, []);
 
   // Initial fetch
   React.useEffect(() => {

@@ -1,22 +1,15 @@
-import { useRandomWord } from './use-random-word';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { createDevApi, WordsApi } from '../api/words';
 
-jest.mock('');
+import { useRandomWord } from './use-random-word';
+import { server, getRandomWordMock } from 'mocks/test-server';
 
 beforeAll(() => {
   console.error = jest.fn();
 });
 
-function renderUseRandomWord(word: string) {
-  const api = createDevApi([word]);
-
-  return renderHook(() => useRandomWord(api));
-}
-
 describe('useRandomWord hook', () => {
   it('handles state when is fetching a word', async () => {
-    const { result } = renderUseRandomWord('sth');
+    const { result } = renderHook(useRandomWord);
 
     expect(result.current.status).toBe('pending');
 
@@ -26,20 +19,19 @@ describe('useRandomWord hook', () => {
   });
 
   it('handles state when successfully fetched a word and returns a word in uppercase', async () => {
-    const expectedWord = 'hangman';
-    const { result } = renderUseRandomWord(expectedWord);
+    server.use(getRandomWordMock.mockSuccess('lowercase'));
+
+    const { result } = renderHook(useRandomWord);
 
     await act(async () => result.current.fetchRandomWord());
 
     expect(result.current.status).toBe('resolved');
-    expect(result.current.randomWord).toBe(expectedWord.toUpperCase());
+    expect(result.current.randomWord).toBe('lowercase'.toUpperCase());
   });
 
   it('handles state when failed to fetch a word', async () => {
-    const mockApi: WordsApi = {
-      getRandomWord: jest.fn(() => Promise.reject()),
-    };
-    const { result } = renderHook(() => useRandomWord(mockApi));
+    server.use(getRandomWordMock.mockError());
+    const { result } = renderHook(useRandomWord);
 
     await act(async () => result.current.fetchRandomWord());
 

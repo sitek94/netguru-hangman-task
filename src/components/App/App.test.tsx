@@ -1,121 +1,132 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import {
+  waitForLoadingToFinish,
+  screen,
+  userEvent,
+  render,
+  getButton,
+  getByText,
+} from 'test/utils';
 
-import { WordsApi } from 'api/words';
+import { getRandomWordMock, server } from 'mocks/test-server';
+import { screens } from 'constants/content';
 
 import App from './App';
-import { flushPromises } from 'test/utils';
 
 // Custom render
-const renderApp = (api: WordsApi) => render(<App api={api} />);
-
-// Mocks
-const createMockApi = (getRandomWord = jest.fn()) => ({
-  getRandomWord,
-});
+const renderApp = () => render(<App />);
 
 // Helpers
-const getButton = (name: string) =>
-  screen.getByRole('button', { name: new RegExp(name, 'i') });
-const getStartGameButton = () => getButton('start game');
-const startGame = () => userEvent.click(getStartGameButton());
+const getStartGameButton = () => getButton(screens.start.button);
+const clickStartGame = () => userEvent.click(getStartGameButton());
+const getWinScreen = () => getByText(screens.gameWon.title);
+const getLostScreen = () => getByText(screens.gameLost.title);
+const type = (text: string) =>
+  userEvent.type(screen.getByTestId('layout'), text);
 
-describe('<App>', () => {
+const isGameCleared = () => {
+  const folk = screen.getByTestId('folk');
+  const missedLetters = screen.getByTestId('missed-letters');
+  const letterTiles = screen.getAllByTestId('letter-tile');
+
+  const missedLettersAreEmpty = !missedLetters.hasChildNodes();
+  const folkIsEmpty = !folk.hasChildNodes();
+  const letterTilesAreEmpty = letterTiles.every(
+    letterTile => !letterTile.textContent,
+  );
+  return missedLettersAreEmpty && letterTilesAreEmpty && folkIsEmpty;
+};
+
+describe('App component', () => {
   describe('when game is run for the first time', () => {
     it('shows "Initial screen"', async () => {
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue('folk');
-      renderApp(api);
-
-      await flushPromises();
+      renderApp();
 
       expect(getStartGameButton()).toBeInTheDocument();
     });
 
     it('cleans the screen after clicking "Start game"', async () => {
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue('folk');
-      renderApp(api);
-
-      await flushPromises();
+      renderApp();
 
       const letters = screen.getByText(/B D E Z P U K L Q W/);
       const startButton = screen.getByText(/Start game/i);
       const title = screen.getByText(/Netguru hangman/i);
 
-      userEvent.click(getStartGameButton());
+      clickStartGame();
+
+      await waitForLoadingToFinish();
 
       expect(letters).not.toBeInTheDocument();
       expect(startButton).not.toBeInTheDocument();
       expect(title).not.toBeInTheDocument();
+      expect(isGameCleared()).toBe(true);
     });
   });
 
   describe('when game has started', () => {
-    it('fetches a new word when the one fetched is too long', async () => {
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue('definitely-too-long-string');
-      renderApp(api);
-
-      // Finish initial loading
-      await flushPromises();
-
-      userEvent.click(getStartGameButton());
-
-      expect(api.getRandomWord).toBeCalledTimes(2);
-    });
+    // it('fetches a new word when the one fetched is too long', async () => {
+    //   const mockedWords = ['definitely-too-long-word', 'shorty'];
+    //   const [, secondWord] = mockedWords;
+    //   server.use(getRandomWordMock.mockSuccesses(mockedWords));
+    //
+    //   renderApp();
+    //
+    //   clickStartGame();
+    //
+    //   await waitForLoadingToFinish();
+    //
+    //   type(secondWord);
+    //
+    //   expect(getWinScreen()).toBeInTheDocument();
+    // });
 
     it('shows the loading screen when fetching a random word', async () => {
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue('test');
-      renderApp(api);
+      renderApp();
 
-      userEvent.click(getStartGameButton());
+      clickStartGame();
+
       expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
-      await flushPromises();
+      await waitForLoadingToFinish();
 
       // Should NOT show loading screen anymore
       expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
     });
 
     it('shows the error screen when failed to fetch a random word', async () => {
-      console.error = jest.fn();
-      const api = createMockApi();
-      api.getRandomWord.mockRejectedValue('error');
-      renderApp(api);
+      server.use(getRandomWordMock.mockError());
+      jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      await flushPromises();
+      renderApp();
 
-      userEvent.click(getStartGameButton());
+      clickStartGame();
+      await waitForLoadingToFinish();
 
       expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
       expect(console.error).toBeCalledTimes(1);
     });
 
     it('shows the game-over screen when user pressed incorrect letter 11 times', async () => {
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue('m');
-      renderApp(api);
+      server.use(getRandomWordMock.mockSuccess('z'));
+      renderApp();
 
-      await flushPromises();
+      clickStartGame();
+      await waitForLoadingToFinish();
 
-      userEvent.click(getStartGameButton());
-      userEvent.type(screen.getByTestId('layout'), 'QWERTYUIOPS');
+      type('Aa{shift}abcdefghijk');
 
-      expect(screen.getByText(/game over/i)).toBeInTheDocument();
+      expect(getLostScreen()).toBeInTheDocument();
     });
 
     it('shows the game-won screen when user found all correct letters', async () => {
-      const expectedWord = 'hangman';
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue(expectedWord);
-      renderApp(api);
+      const expectedWord = 'tolkien';
+      server.use(getRandomWordMock.mockSuccess(expectedWord));
 
-      await flushPromises();
+      renderApp();
 
-      userEvent.click(getStartGameButton());
-      userEvent.type(screen.getByTestId('layout'), expectedWord);
+      clickStartGame();
+      await waitForLoadingToFinish();
+
+      type(expectedWord);
 
       expect(screen.getByText(/you won/i)).toBeInTheDocument();
     });
@@ -123,45 +134,50 @@ describe('<App>', () => {
 
   describe('when game has finished - player won/lost', () => {
     it('is possible to start a new game by hitting "again"', async () => {
-      const expectedWord = 'pizza';
-      const api = createMockApi();
-      api.getRandomWord.mockResolvedValue(expectedWord);
-      renderApp(api);
+      const mockedWords = ['john', 'ronald', 'z'];
+      const [firstWord, secondWord] = mockedWords;
+      server.use(getRandomWordMock.mockSuccesses(mockedWords));
 
-      const winGame = () =>
-        userEvent.type(screen.getByTestId('layout'), expectedWord);
-      const hitAgainBtn = () => userEvent.click(getButton('again'));
+      renderApp();
 
-      // Get first word on initial load
-      expect(api.getRandomWord).toHaveBeenCalledTimes(1);
+      clickStartGame();
+      await waitForLoadingToFinish();
 
-      await flushPromises();
+      // Win game
+      type(firstWord);
+      expect(getWinScreen()).toBeInTheDocument();
 
-      startGame();
-      winGame();
+      userEvent.click(getButton(screens.gameWon.button));
+      expect(isGameCleared()).toBe(true);
 
-      expect(screen.getByText(/you won/i)).toBeInTheDocument();
+      await waitForLoadingToFinish();
 
-      hitAgainBtn();
-      // Get second word after clicking "again"
-      expect(api.getRandomWord).toHaveBeenCalledTimes(2);
+      // Win game
+      type(secondWord);
+      expect(getWinScreen()).toBeInTheDocument();
 
-      await flushPromises();
+      userEvent.click(getButton(screens.gameWon.button));
+      expect(isGameCleared()).toBe(true);
 
-      // Win the game
-      winGame();
-      hitAgainBtn();
+      await waitForLoadingToFinish();
 
-      // Get third word
-      expect(api.getRandomWord).toHaveBeenCalledTimes(3);
+      // Lose game
+      type('abcdefghijkl');
+      expect(getLostScreen()).toBeInTheDocument();
+
+      userEvent.click(getButton(screens.gameLost.button));
+      expect(isGameCleared()).toBe(true);
     });
   });
 
   describe(`when "initial", "game-won", "game-over", "loading" or "error" screen is shown`, () => {
     it('does nothing on key down event', async () => {
-      render(<App api={createMockApi()} />);
+      renderApp();
 
-      userEvent.type(screen.getByTestId('layout'), 'adsfascxvqewrqefsdafsa123');
+      userEvent.type(
+        screen.getByTestId('layout'),
+        'aaAAddsfascxvqewrqefsdafsa123',
+      );
 
       expect(screen.getByText(/Start game/i)).toBeInTheDocument();
     });

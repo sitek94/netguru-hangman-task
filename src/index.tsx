@@ -1,20 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import App from './components/App/App';
 import 'fonts/fonts.scss';
 import 'index.scss';
 
-import { prodApi, createDevApi } from './api/words';
-import config from './config';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const api = config.isProd
-  ? prodApi
-  : createDevApi(['maciek', 'a', 'word', 'test']);
+import App from 'components/App/App';
+
+// import { worker } from 'test/server';
+
+// Start the mocking conditionally.
+// Start the mocking conditionally.
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('mocks/dev-worker');
+  worker.start();
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App api={api} />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { MAX_MISSED_LETTERS, MAX_WORD_LENGTH } from 'constants/game';
+import { MAX_MISSED_LETTERS } from 'constants/game';
+import { screens } from 'constants/content';
 
 import Folk from 'components/Folk';
 import YouMissed from 'components/YouMissed';
@@ -9,16 +10,11 @@ import Layout from 'components/Layout';
 import Modal from 'components/Modal';
 
 import { useRandomWord } from 'hooks/use-random-word';
-import { WordsApi } from '../../api/words';
 
-interface AppProps {
-  api: WordsApi;
-}
-
-function App({ api }: AppProps) {
+function App() {
   const [isFirstGame, setIsFirstGame] = React.useState(true);
   const [usedLetters, setUsedLetters] = React.useState<string[]>([]);
-  const { randomWord, status, fetchRandomWord } = useRandomWord(api);
+  const { randomWord, status, fetchRandomWord } = useRandomWord();
 
   const missedLetters = usedLetters.filter(l => !randomWord.includes(l));
   const guessedLetters = usedLetters.filter(l => randomWord.includes(l));
@@ -64,13 +60,6 @@ function App({ api }: AppProps) {
     };
   }, [usedLetters, isFirstGame, isGameWon, isGameOver, isLoading, isError]);
 
-  // When random word is too long fetches new one
-  React.useEffect(() => {
-    if (randomWord.length > MAX_WORD_LENGTH) {
-      fetchRandomWord();
-    }
-  }, [randomWord, fetchRandomWord]);
-
   // Fetches new word and resets the used letters
   const startNewGame = () => {
     setUsedLetters([]);
@@ -87,35 +76,36 @@ function App({ api }: AppProps) {
     return (
       <Layout>
         <Modal
-          title="Netguru Hangman"
-          description="This is a simple Hangman game, have fun and good luck!"
-          buttonText="Start game"
+          title={screens.start.title}
+          description={screens.start.description}
+          buttonText={screens.start.button}
           onButtonClick={startFirstGame}
         />
         <Folk visiblePartsCount={11} />
-        <YouMissed
-          missedLetters={['B', 'D', 'E', 'Z', 'P', 'U', 'K', 'L', 'Q', 'W']}
+        <YouMissed missedLetters={screens.start.missedLetters} />
+        <LetterTiles
+          word={screens.start.word}
+          guessedLetters={screens.start.guessedLetters}
         />
-        <LetterTiles word="HANGMAN" guessedLetters={['H', 'A']} />
       </Layout>
     );
   }
 
   // When the word is too long, before new one is fetched use empty string
   // to so that <LetterTile> is semi-transparent
-  const word = randomWord.length > MAX_WORD_LENGTH ? '' : randomWord;
+  // const word = randomWord.length > MAX_WORD_LENGTH ? '' : randomWord;
 
   // After the initial game
   return (
     <Layout>
       {/* Loading screen */}
-      {isLoading && <Modal title="Loading..." noButton />}
+      {isLoading && <Modal title={screens.loading.title} noButton />}
 
       {/* Error screen */}
       {isError && (
         <Modal
-          title="Ooops :("
-          description="Something went wrong, try refreshing the page."
+          title={screens.error.title}
+          description={screens.error.description}
           noButton
         />
       )}
@@ -123,8 +113,8 @@ function App({ api }: AppProps) {
       {/* Game over screen */}
       {isGameOver && isSuccess && (
         <Modal
-          title="Game over"
-          buttonText="New word"
+          title={screens.gameLost.title}
+          buttonText={screens.gameLost.button}
           onButtonClick={startNewGame}
         />
       )}
@@ -132,16 +122,16 @@ function App({ api }: AppProps) {
       {/* Game won screen */}
       {isGameWon && isSuccess && (
         <Modal
-          title="You won!"
-          buttonText="Again"
-          description={`Congratulations, you missed ${missedLetters.length} letters.`}
+          title={screens.gameWon.title}
+          buttonText={screens.gameWon.button}
+          description={screens.gameWon.description(missedLetters.length)}
           onButtonClick={startNewGame}
         />
       )}
 
       <Folk visiblePartsCount={missedLetters.length} />
       <YouMissed missedLetters={missedLetters} />
-      <LetterTiles word={word} guessedLetters={guessedLetters} />
+      <LetterTiles word={randomWord} guessedLetters={guessedLetters} />
     </Layout>
   );
 }

@@ -15,7 +15,7 @@ function LetterTiles({ word, guessedLetters }: LettersProps) {
     .split('');
 
   return (
-    <div className="letter-tiles">
+    <div className="letter-tiles" data-testid="letter-tiles">
       {wordLetters.map((letter, i) => (
         <LetterTile key={i} inactive={letter === ' '}>
           {guessedLetters.includes(letter) || letter === '-' ? letter : null}
