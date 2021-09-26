@@ -11,12 +11,14 @@ export const wordsApi = {
 
 export const githubProfileUrl = getEnv('REACT_APP_MY_PROFILE_URL');
 
-export const isProd = index === 'production';
-export const isDev = index === 'development';
+export const isProduction = index === 'production';
+export const isDevelopment = index === 'development';
 export const isTest = index === 'test';
+
+const { pathname } = new URL(pkg.homepage);
 
 export const project = {
   name: pkg.name,
   repoUrl: githubProfileUrl + '/' + pkg.name,
-  // clientUrl: pkg.homepage
+  pathname,
 };

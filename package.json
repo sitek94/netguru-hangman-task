@@ -2,6 +2,7 @@
   "name": "hangman-game",
   "author": "Maciek Sitkowski",
   "version": "0.1.0",
+  "homepage": "https://sitek94.github.io/hangman-game",
   "private": true,
   "scripts": {
     "predeploy": "yarn build",
@@ -9,7 +10,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "yarn test --coverage",
+    "test:coverage": "yarn test --coverage --watchAll",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "cypress:open": "cypress open"
@@ -49,8 +50,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/",
       "!<rootDir>/src/index.tsx",
+      "!<rootDir>/node_modules/",
       "!<rootDir>/src/mocks/dev-worker.ts"
     ],
     "coverageThreshold": {

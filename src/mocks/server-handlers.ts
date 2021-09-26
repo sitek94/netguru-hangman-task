@@ -3,7 +3,6 @@ import { wordsApi } from 'config';
 
 let index = 0;
 export const words = [
-  'definitely-too-long-word',
   'lotr',
   'ale',
   'pozdro',
