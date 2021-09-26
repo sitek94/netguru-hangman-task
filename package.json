@@ -7,7 +7,8 @@
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm build/mockServiceWorker.js",
+    "build:local": "PUBLIC_URL=/ yarn build",
     "start": "react-scripts start",
     "start:msw": "REACT_APP_ENABLE_MSW=true react-scripts start",
     "test": "react-scripts test",
