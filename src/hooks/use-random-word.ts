@@ -14,9 +14,6 @@ export function useRandomWord() {
 
     try {
       const fetchedWord = await getRandomWord();
-
-      // If the word exceeds "maxLength", recursively call fetchRandomWord again
-      // until there will be word with correct length.
       setStatus('resolved');
       setWord(fetchedWord.toUpperCase());
     } catch (e) {

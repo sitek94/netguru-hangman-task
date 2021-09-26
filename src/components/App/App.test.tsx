@@ -1,10 +1,10 @@
 import {
-  waitForLoadingToFinish,
-  screen,
-  userEvent,
-  render,
   getButton,
   getByText,
+  render,
+  screen,
+  userEvent,
+  waitForLoadingToFinish,
 } from 'test/utils';
 
 import { getRandomWordMock, server } from 'mocks/test-server';
@@ -63,22 +63,6 @@ describe('App component', () => {
   });
 
   describe('when game has started', () => {
-    // it('fetches a new word when the one fetched is too long', async () => {
-    //   const mockedWords = ['definitely-too-long-word', 'shorty'];
-    //   const [, secondWord] = mockedWords;
-    //   server.use(getRandomWordMock.mockSuccesses(mockedWords));
-    //
-    //   renderApp();
-    //
-    //   clickStartGame();
-    //
-    //   await waitForLoadingToFinish();
-    //
-    //   type(secondWord);
-    //
-    //   expect(getWinScreen()).toBeInTheDocument();
-    // });
-
     it('shows the loading screen when fetching a random word', async () => {
       renderApp();
 
