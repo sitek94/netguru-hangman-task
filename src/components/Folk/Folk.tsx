@@ -1,6 +1,6 @@
-import * as React from 'react';
-
 import './Folk.scss';
+
+import * as React from 'react';
 
 // Folk's parts are in the order that they are rendered
 // during the game.

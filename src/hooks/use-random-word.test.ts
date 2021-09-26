@@ -1,6 +1,8 @@
-import { useRandomWord } from './use-random-word';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { createDevApi, WordsApi } from '../api/words';
+
+import { createDevApi, WordsApi } from 'api/words';
+
+import { useRandomWord } from './use-random-word';
 
 jest.mock('');
 

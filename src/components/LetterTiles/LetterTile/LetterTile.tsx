@@ -1,7 +1,7 @@
+import './LetterTile.scss';
+
 import * as React from 'react';
 import clsx from 'clsx';
-
-import './LetterTile.scss';
 
 interface LetterProps {
   inactive?: boolean;
