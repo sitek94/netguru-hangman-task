@@ -1,4 +1,4 @@
-@import '../../sass/media-queries';
+@import '../../assets/sass/media-queries';
 
 .folk {
   // Z-index
@@ -51,7 +51,7 @@
     transform: translateX(-50%);
     width: var(--head-width);
     height: var(--head-height);
-    background: url(../../images/head.png);
+    background: url(../../assets/images/head.png);
   }
 
   // NECK

@@ -1,5 +1,5 @@
-import 'fonts/fonts.scss';
-import 'index.scss';
+import 'assets/fonts/fonts.scss';
+import 'assets/sass/index.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
