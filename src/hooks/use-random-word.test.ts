@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+import { getRandomWordMock, server } from 'mocks/test-server';
 
 import { useRandomWord } from './use-random-word';
-import { server, getRandomWordMock } from 'mocks/test-server';
 
 beforeAll(() => {
   console.error = jest.fn();

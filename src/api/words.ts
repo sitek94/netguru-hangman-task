@@ -1,4 +1,5 @@
 import { wordsApi } from 'config';
+
 import { MAX_WORD_LENGTH } from 'constants/game';
 
 /**

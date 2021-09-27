@@ -3,9 +3,9 @@ import 'assets/sass/index.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { isDevelopment, isMSWEnabled, project } from 'config';
 
 import App from 'components/App/App';
-import { isDevelopment, isMSWEnabled, project } from 'config';
 
 async function main() {
   // Conditionally enable Mock Service Worker

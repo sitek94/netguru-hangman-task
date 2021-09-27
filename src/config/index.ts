@@ -1,4 +1,5 @@
 import { getBoolEnv, getEnv } from 'utils/get-env';
+
 import pkg from '../../package.json';
 
 const index = process.env.NODE_ENV;

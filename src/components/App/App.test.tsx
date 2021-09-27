@@ -1,3 +1,6 @@
+import { getRandomWordMock, server } from 'mocks/test-server';
+
+import { screens } from 'constants/content';
 import {
   getButton,
   getByText,
@@ -6,9 +9,6 @@ import {
   userEvent,
   waitForLoadingToFinish,
 } from 'test/utils';
-
-import { getRandomWordMock, server } from 'mocks/test-server';
-import { screens } from 'constants/content';
 
 import App from './App';
 

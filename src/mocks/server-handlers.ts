@@ -1,5 +1,5 @@
-import { rest } from 'msw';
 import { wordsApi } from 'config';
+import { rest } from 'msw';
 
 let index = 0;
 export const words = [
