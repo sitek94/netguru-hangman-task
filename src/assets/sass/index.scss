@@ -17,6 +17,10 @@
 
   --font-family: 'AllerDisplay', Helvetica, Arial, sans-serif;
 
+  --z-50: 50;
+  --z-10: 10;
+  --z-0: 0;
+
   @include respond(lg) {
     --container-padding: 25px;
   }
