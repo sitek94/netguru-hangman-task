@@ -47,10 +47,10 @@ function App() {
       setUsedLetters(usedLetters.concat(key.toUpperCase()));
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    document.body.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.removeEventListener('keydown', handleKeyDown);
     };
   }, [usedLetters, isFirstGame, isGameWon, isGameOver, isPending, isRejected]);
 

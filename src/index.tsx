@@ -16,7 +16,7 @@ async function main() {
       window.location.pathname = project.pathname + '/';
       return;
     }
-    const { worker } = require('./mocks/dev-worker');
+    const { worker } = require('mocks/browser');
 
     await worker.start({
       quiet: true,

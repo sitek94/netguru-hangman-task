@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { getRandomWordMock, server } from 'mocks/test-server';
+import { getRandomWordMock, server } from 'mocks/server';
 
 import { useRandomWord } from './use-random-word';
 

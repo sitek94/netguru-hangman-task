@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-import { server } from 'mocks/test-server';
+import { server } from 'mocks/server';
 
 // enable API mocking in test runs using the same request handlers
 // as for the client-side mocking.

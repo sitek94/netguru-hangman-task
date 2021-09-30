@@ -12,7 +12,7 @@ export const words = [
   'secondary',
 ];
 
-export const serverHandlers = [
+export const handlers = [
   rest.get(wordsApi.url, (req, res, ctx) => {
     const query = req.url.searchParams;
     const random = query.get('random');
