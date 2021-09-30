@@ -16,6 +16,7 @@
     "test:coverage": "npm run test -- --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "cypress:run": "cypress run",
     "cypress:open": "cypress open",
     "prepare": "husky install"
   },
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@testing-library/cypress": "^8.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@testing-library/react-hooks": "^5.0.0",

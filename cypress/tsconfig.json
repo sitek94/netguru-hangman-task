@@ -1,10 +1,11 @@
 {
+  "extends": "../tsconfig.json",
+  "include": ["./**/*.ts"],
+  "exclude": [],
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress"],
-    "esModuleInterop": true,
-    "jsx": "react-jsx"
-  },
-  "include": ["**/*.ts"]
+    "types": ["cypress", "@testing-library/cypress"],
+    "lib": ["es2015", "dom"],
+    "isolatedModules": false,
+    "noEmit": true
+  }
 }
