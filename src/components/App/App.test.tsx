@@ -1,4 +1,4 @@
-import { getRandomWordMock, server } from 'mocks/test-server';
+import { getRandomWordMock, server } from 'mocks/server';
 
 import { screens } from 'constants/content';
 import {

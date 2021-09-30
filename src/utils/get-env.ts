@@ -18,5 +18,5 @@ export const getBoolEnv = (name: string): boolean => {
     throw new Error(`"${name}" ENV variable has to be a boolean`);
   }
 
-  return Boolean(value);
+  return value === 'true';
 };
